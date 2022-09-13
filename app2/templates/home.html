@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/Home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <span class="fs-4">Django</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="/Home" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item"><a href='/AddAppointment' class="nav-link">Add a New Appointment</a></li>
+                <li class="nav-item"><a href='/logout' class="nav-link">Log out</a></li>
+        </header>
+    </div>
+
+    <h1>Hi {{request.session.lastname}} , {{request.session.firstname}} !!!</h1>
+    <p>Here are your appointments.</p>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Task</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Like/Unlike</th>
+
+        </tr>
+
+        {% for Appointment in AllAppointment %}
+        <tr>
+            <td>{{ Appointment.id }}</td>
+            <td>{{ Appointment.Taskname }}</td>
+            <td>{{ Appointment.Taskdate }}</td>
+            <td>{{ Appointment.Taskstatus.StatusDesc }}</td>
+            {% if Appointment.Taskstatus.id != 1 %}
+            <td>
+                <a href='Update/{{ Appointment.id }}'> Edit</a>
+                <a href='Remove/{{ Appointment.id }}'> Delete</a>
+            </td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {{ Appointment.appoinments.LikedAppointment }}
+            {% if Appointment.appoinments %}
+            <td>      
+                <form action="Like" method="POST"> {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{ request.session.user_id }}">
+                    <input type="hidden" id="appoinmentid" name="appoinmentid" value="{{ Appointment.id }}">
+                    <input type="submit" value="Like">
+                </form>
+            </td>
+            {% else %}
+            <td>
+                <form action="UnLike" method="POST"> {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{ request.session.user_id }}">
+                    <input type="hidden" id="appoinmentid" name="appoinmentid" value="{{ Appointment.id }}">
+                    <input type="submit" value="UnLike">
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>Past appointments</p>
+    <table border="1">
+        <tr>
+            <th>Task</th>
+            <th>Date</th>
+        </tr>
+        {% for pastappoinment in AllPastAppointment %}
+
+        <tr>
+            <td>{{ pastappoinment.Taskname }}</td>
+            <td>{{ pastappoinment.Taskdate }}</td>
+        </tr>
+
+        {% endfor %}
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

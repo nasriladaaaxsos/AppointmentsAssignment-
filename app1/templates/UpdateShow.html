@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Show</title>
+</head>
+
+<body>
+    <h1>Edit the office</h1>
+    <form action="/app1/Update" method="POST">
+        <!--  action name is the name inside urls of app -->
+        {% csrf_token %}
+        <input type="hidden" id="id" name="id" value={{ updateshow.id }}>
+        <table>
+            <tr>
+                <td><label for="title">Title</label></td>
+                <td><input type="text" id="title" name="title" value={{ updateshow.title }}></td>
+            </tr>
+            <tr>
+                <td><label for="network">Network</label></td>
+                <td><input type="text" id="network" name="network" value={{ updateshow.network }}></td>
+            </tr>
+            <tr>
+                <td><label for="birthDay">Release Date:</label></td>
+                <td><input type="date" id="birthDay" name="birthDay" value={{ updateshow.birthDay }}></td>
+            </tr>
+            <tr>
+                <td><label for="description">Description</label></td>
+                <td><textarea id="description" name="description"> {{ updateshow.description }} </textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+
+    <a href='/app1/logout'>Log out</a>
+
+    <a href='/app1/Viewall'>TV Shows</a>
+
+</body>
+
+
+
+</html>

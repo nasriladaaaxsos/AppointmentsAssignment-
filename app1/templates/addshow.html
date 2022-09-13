@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Show</title>
+</head>
+
+<body>
+    <h1>Add a new Show</h1>
+    <form action="SaveShow" method="POST">
+        <!--  action name is the name inside urls of app -->
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td> <label for="title">Title</label></td>
+                <td><input type="text" id="title" name="title"></td>
+            </tr>
+            <tr>
+                <td><label for="network">Network</label></td>
+                <td> <input type="text" id="network" name="network">
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="birthDay">Release Date</label></td>
+                <td> <input type="text" id="birthDay" name="birthDay"></td>
+            </tr>
+            <tr>
+                <td> <label for="description">Description</label></td>
+                <td><input type="text" id="description" name="description"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Add">
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <a href='/app1/logout'>Log out</a>
+
+    <a href='/app1/Viewall'>TV Shows</a>
+    
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+
+</html>
+
+
+<!-- 
+import re	# the regex module
+class BlogManager(models.Manager):
+    def basic_validator(self, postData):    
+        errors = {}
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['email']):    # test whether a field matches the pattern            
+            errors['email'] = "Invalid email address!"
+        return errors
+-->

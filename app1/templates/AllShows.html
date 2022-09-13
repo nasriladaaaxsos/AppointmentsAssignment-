@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Hi {{request.session.lastname}} , {{request.session.firstname}} !!!</p>
+    <h1>All TV Shows</h1>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Network</th>          
+            <th>Release Date</th>
+            <th>Show</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Like</th>
+        </tr>
+        {% for show in AllShows %}
+        <tr>
+            <td>{{ show.id }}</td>
+            <td>{{ show.title }}</td>
+            <td>{{ show.network }}</td>  
+            <td>{{ show.birthDay }}</td>        
+            <td><a href='Get/{{ show.id }}' alt="View Show"> Show </a></td>
+            <td><a href='Remove/{{ show.id }}' alt="Delete Show"> Delete </a></td>
+            <td><a href='Update/{{ show.id }}' alt="Edit Show"> Edit </a></td>
+            <td><a href='Like/{{ show.id }}' alt="Like-Unlike-Show"> Like </a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href='/app1/logout'>Log out</a>
+
+    <a href='/app1/AddShow'>Add a New Show</a>
+</body>
+
+</html>
